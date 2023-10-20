@@ -21,6 +21,63 @@ const ProductSchema=new Schema({
 })
 const Product = mongoose.model('Product',ProductSchema)
 
+app.post('/product', async (req,res)=>{
+    const {name, description, price, productImage, brand}=req.body
+    if (!name) 
+    {
+        return res.json({
+            success: false,
+            message: `Product name is required `
+        });
+    }
+    if (!image) 
+    {
+        return res.json({
+            success: false,
+            message: `image url is required `
+        });
+    }
+
+    if (!title) 
+    {
+        return res.json({
+            success: false,
+            message: `title is required `
+        });
+    }
+
+    if (!description) {
+        return res.json({
+            success: false,
+            message: `description is required `
+        });
+    }
+
+    if (!price) {
+
+        return res.json({
+            success: false,
+            message: `price is required `
+        });
+    }
+
+
+    const productObject = new Product({
+        name:name,
+        description:description,
+        price:price,
+        productImage:productImage,
+        brand:brand
+    })
+    const savedProduct= await productObject.save()
+    res.json({
+       " result":true,
+        "product":savedProduct,
+       " message":"product   added successfully"
+
+    })
+})
+
 
 
 app.listen(5000, () => {
