@@ -12,10 +12,10 @@ const connectMongodb= async()=>{
     }
 }
 connectMongodb()
-const ProductSchema=new Schema({
+const ProductSchema = new Schema({
      name: String,
      description: String,
-     price: Number,
+     price: String,
      productImage: String,
      brand: String
 })
@@ -30,19 +30,19 @@ app.post('/product', async (req,res)=>{
             message: `Product name is required `
         });
     }
-    if (!image) 
+    if (!productImage) 
     {
         return res.json({
             success: false,
-            message: `image url is required `
+            message: `product image is required `
         });
     }
 
-    if (!title) 
+    if (!price) 
     {
         return res.json({
             success: false,
-            message: `title is required `
+            message: `Price is required `
         });
     }
 
@@ -53,11 +53,11 @@ app.post('/product', async (req,res)=>{
         });
     }
 
-    if (!price) {
+    if (!brand) {
 
         return res.json({
             success: false,
-            message: `price is required `
+            message: `Brand is required `
         });
     }
 
@@ -69,15 +69,38 @@ app.post('/product', async (req,res)=>{
         productImage:productImage,
         brand:brand
     })
-    const savedProduct= await productObject.save()
+    const savedProduct = await productObject.save()
     res.json({
        " result":true,
         "product":savedProduct,
-       " message":"product   added successfully"
+       " message":"product added successfully"
 
     })
 })
 
+
+app.get('/product', async (req,res)=>{
+    const Products = await Product.find()
+    res.json({
+        " result":true,
+         "prductc": Products,
+        " message":"product added successfully"
+     })
+
+
+})
+app.get('/product', async (req,res)=>{
+    const {name}=req.query
+    const productOne = await Product.findOne({name:name})
+    res.json({
+        "result":true,
+         "prductc":productOne,
+        "message":"This is your product"
+ 
+     })
+
+
+})
 
 
 app.listen(5000, () => {
