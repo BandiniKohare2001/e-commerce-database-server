@@ -116,34 +116,34 @@ app.put('/product/:_id', async (req, res) => {
     })
     const updatedProductone = await Product.findOne({ _id: _id })
     if (!name) {
-        res.json({
-            result: false,
-            message: "name is required"
-        })
-    }
-    if (!description) {
-        res.json({
-            result: false,
-            message: "name is description"
-        })
-    }
-    if (!price) {
-        res.json({
-            result: false,
-            message: "name is price"
-        })
+        return res.json({
+            success: false,
+            message: `Product name is required `
+        });
     }
     if (!productImage) {
-        res.json({
-            result: false,
-            message: "name is productImage"
-        })
+        return res.json({
+            success: false,
+            message: `product image is required `
+        });
+    }
+    if (!price) {
+        return res.json({
+            success: false,
+            message: `Price is required `
+        });
+    }
+    if (!description) {
+        return res.json({
+            success: false,
+            message: `description is required `
+        });
     }
     if (!brand) {
-        res.json({
-            result: false,
-            message: "name is brand"
-        })
+        return res.json({
+            success: false,
+            message: `Brand is required `
+        });
     }
     res.json({
         " result": true,
