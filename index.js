@@ -181,7 +181,7 @@ app.patch('/product/:_id', async (req, res) => {
     res.json({
         " result": true,
         "prductc": saved,
-        " message": `product updated `
+        "message": `product updated `
 
     })
 
